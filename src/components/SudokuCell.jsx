@@ -13,7 +13,11 @@ const SudokuCell = ({
   cage,
   topLeftCage,
   cageBorders,
+  cageSelectionCursor,
   handleCellClick,
+  handleCellMouseDown,
+  handleCellMouseEnter,
+  handleCellMouseUp,
   onEditCage,
 }) => {
   const cellKey = `${rowIndex}-${cellIndex}`;
@@ -21,44 +25,41 @@ const SudokuCell = ({
   return (
     <div
       data-cell={`${rowIndex}-${cellIndex}`}
-      className={`cell size-15 border border-gray-900/10 flex items-center justify-center hover:bg-gray-900/10 cursor-default relative
-        ${cell !== "" ? " bg-gray-900/10" : ""}
-        ${
-          !isHintMode &&
-          selectedCell[0] === rowIndex &&
-          selectedCell[1] === cellIndex
-            ? " bg-gray-900/10"
-            : ""
-        }
-        ${
-          isHintMode && selectedCells.has(cellKey)
-            ? " bg-yellow-300/50 border-yellow-500"
-            : ""
-        }
+      className={`cell size-15 flex items-center justify-center cursor-default relative font-semibold text-black
         ${
           cellIndex < 8 && (cellIndex + 1) % 3 === 0
-            ? "border-r-3 border-r-gray-900/30"
+            ? "border-r-4"
             : ""
         }
         ${
           rowIndex < 8 && (rowIndex + 1) % 3 === 0
-            ? "border-b-3 border-b-gray-900/30"
-            : ""
-        }
-        ${
-          !isQuestionMode && !isHintMode && question[rowIndex][cellIndex] !== ""
-            ? " bg-blue-500/30 font-bold"
-            : ""
-        }
-        ${
-          invalidCells.has(`${rowIndex}-${cellIndex}`)
-            ? " bg-red-500/10 text-red-900"
+            ? "border-b-4"
             : ""
         }
         ${isHintMode ? " select-none" : ""}
         `}
       style={{
-        backgroundColor: cage && !isHintMode ? cage.color : undefined,
+        border: '1px solid #555',
+        borderRightWidth: cellIndex < 8 && (cellIndex + 1) % 3 === 0 ? '4px' : '1px',
+        borderBottomWidth: rowIndex < 8 && (rowIndex + 1) % 3 === 0 ? '4px' : '1px',
+        borderRightColor: cellIndex < 8 && (cellIndex + 1) % 3 === 0 ? '#555' : '#555',
+        borderBottomColor: rowIndex < 8 && (rowIndex + 1) % 3 === 0 ? '#555' : '#555',
+        backgroundColor: 
+          // Selection colors (highest priority)
+          (!isHintMode && selectedCell[0] === rowIndex && selectedCell[1] === cellIndex) ? '#aaa' :
+          (isHintMode && cageSelectionCursor && cageSelectionCursor[0] === rowIndex && cageSelectionCursor[1] === cellIndex) ? '#aaa' :
+          (isHintMode && selectedCells.has(cellKey)) ? '#aaa' :
+          // Invalid cells
+          (invalidCells.has(`${rowIndex}-${cellIndex}`)) ? '#ffcccc' :
+          // Question cells
+          (!isQuestionMode && !isHintMode && question[rowIndex][cellIndex] !== "") ? '#cce7ff' :
+          // Cage colors (only if not selected and not in hint mode)
+          (cage && !isHintMode && 
+           !(selectedCell[0] === rowIndex && selectedCell[1] === cellIndex) &&
+           !(isHintMode && cageSelectionCursor && cageSelectionCursor[0] === rowIndex && cageSelectionCursor[1] === cellIndex) &&
+           !(isHintMode && selectedCells.has(cellKey))) ? cage.color :
+          // Default light background
+          '#f9f9f9',
         userSelect: isHintMode ? "none" : "auto",
         WebkitUserSelect: isHintMode ? "none" : "auto",
         MozUserSelect: isHintMode ? "none" : "auto",
@@ -69,7 +70,10 @@ const SudokuCell = ({
         if (isHintMode) {
           e.preventDefault();
         }
+        handleCellMouseDown(rowIndex, cellIndex, e);
       }}
+      onMouseEnter={() => handleCellMouseEnter(rowIndex, cellIndex)}
+      onMouseUp={handleCellMouseUp}
     >
       {/* Dashed border overlay */}
       {(cageBorders.top ||
@@ -92,7 +96,7 @@ const SudokuCell = ({
 
       {topLeftCage && (
         <div 
-          className="absolute top-0 left-0 text-xs font-bold text-gray-700 bg-white/80 px-1 rounded-br z-10 cursor-pointer hover:bg-blue-100 transition-colors"
+          className="absolute top-0 left-0 z-10 px-1 text-xs font-bold text-gray-700 transition-colors rounded-br cursor-pointer bg-white/80 hover:bg-blue-100"
           onClick={(e) => {
             e.stopPropagation();
             onEditCage(topLeftCage);

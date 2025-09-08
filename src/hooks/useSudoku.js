@@ -24,6 +24,13 @@ export const useSudoku = () => {
   const [showSumDialog, setShowSumDialog] = useState(false);
   const [sumValue, setSumValue] = useState("");
   
+  // Drag selection state
+  const [isDragging, setIsDragging] = useState(false);
+  const [dragStartCell, setDragStartCell] = useState(null);
+  
+  // Cage selection cursor (separate from regular cell selection)
+  const [cageSelectionCursor, setCageSelectionCursor] = useState([0, 0]);
+  
   // Edit cage state
   const [showEditDialog, setShowEditDialog] = useState(false);
   const [editingCage, setEditingCage] = useState(null);
@@ -179,6 +186,80 @@ export const useSudoku = () => {
     return borders;
   }, [getCageInfo]);
 
+  // Helper function to get cells between two points (for consecutive selection)
+  const getCellsBetween = useCallback((startCell, endCell) => {
+    if (!startCell || !endCell) return [];
+    
+    const [startRow, startCol] = startCell.split('-').map(Number);
+    const [endRow, endCol] = endCell.split('-').map(Number);
+    
+    const cells = [];
+    
+    console.log(`Creating selection from ${startCell} to ${endCell}`);
+    
+    // Handle horizontal lines
+    if (startRow === endRow) {
+      const minCol = Math.min(startCol, endCol);
+      const maxCol = Math.max(startCol, endCol);
+      for (let col = minCol; col <= maxCol; col++) {
+        cells.push(`${startRow}-${col}`);
+      }
+      console.log(`Horizontal line: ${cells.length} cells`);
+    }
+    // Handle vertical lines
+    else if (startCol === endCol) {
+      const minRow = Math.min(startRow, endRow);
+      const maxRow = Math.max(startRow, endRow);
+      for (let row = minRow; row <= maxRow; row++) {
+        cells.push(`${row}-${startCol}`);
+      }
+      console.log(`Vertical line: ${cells.length} cells`);
+    }
+    // Handle L-shaped selections (corner-to-corner)
+    else {
+      // Create L-shape by going horizontal first, then vertical
+      // Or vertical first, then horizontal (choose shorter path)
+      
+      const horizontalFirst = [];
+      const verticalFirst = [];
+      
+      // Horizontal first, then vertical
+      const minCol = Math.min(startCol, endCol);
+      const maxCol = Math.max(startCol, endCol);
+      // Add horizontal line at startRow
+      for (let col = minCol; col <= maxCol; col++) {
+        horizontalFirst.push(`${startRow}-${col}`);
+      }
+      // Add vertical line at endCol (excluding the corner we already added)
+      const minRow = Math.min(startRow, endRow);
+      const maxRow = Math.max(startRow, endRow);
+      for (let row = minRow; row <= maxRow; row++) {
+        if (row !== startRow) { // Skip the corner cell we already added
+          horizontalFirst.push(`${row}-${endCol}`);
+        }
+      }
+      
+      // Vertical first, then horizontal  
+      // Add vertical line at startCol
+      for (let row = minRow; row <= maxRow; row++) {
+        verticalFirst.push(`${row}-${startCol}`);
+      }
+      // Add horizontal line at endRow (excluding the corner we already added)
+      for (let col = minCol; col <= maxCol; col++) {
+        if (col !== startCol) { // Skip the corner cell we already added
+          verticalFirst.push(`${endRow}-${col}`);
+        }
+      }
+      
+      // Choose the shorter L-shape (fewer cells)
+      const chosenShape = horizontalFirst.length <= verticalFirst.length ? horizontalFirst : verticalFirst;
+      cells.push(...chosenShape);
+      console.log(`L-shape: horizontal-first=${horizontalFirst.length} cells, vertical-first=${verticalFirst.length} cells, chosen=${cells.length} cells`);
+    }
+    
+    return cells;
+  }, []);
+
   return {
     // State
     table,
@@ -203,6 +284,16 @@ export const useSudoku = () => {
     setSumValue,
     defaultTable,
     
+    // Drag selection state
+    isDragging,
+    setIsDragging,
+    dragStartCell,
+    setDragStartCell,
+    
+    // Cage selection cursor
+    cageSelectionCursor,
+    setCageSelectionCursor,
+    
     // Edit cage state
     showEditDialog,
     setShowEditDialog,
@@ -215,6 +306,7 @@ export const useSudoku = () => {
     validateSudoku,
     getCageInfo,
     isTopLeftOfCage,
-    getCageBorders
+    getCageBorders,
+    getCellsBetween
   };
 };

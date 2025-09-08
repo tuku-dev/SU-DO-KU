@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect } from "react";
 import "./App.css";
 import { useSudoku } from "./hooks/useSudoku";
 import { useSudokuActions } from "./hooks/useSudokuActions";
@@ -10,12 +10,14 @@ import FloatingCageButton from "./components/FloatingCageButton";
 import EditCageDialog from "./components/EditCageDialog";
 
 function App() {
+  // Theme is handled by CSS classes, no need to destructure isDarkMode
   const sudokuState = useSudoku();
   
   const {
     table,
     setTable,
     selectedCell,
+    setSelectedCell,
     question,
     setQuestion,
     isQuestionMode,
@@ -23,7 +25,9 @@ function App() {
     invalidCells,
     setInvalidCells,
     isHintMode,
+    setIsHintMode,
     selectedCells,
+    setSelectedCells,
     cages,
     setCages,
     showSumDialog,
@@ -37,16 +41,53 @@ function App() {
     setEditingCage,
     editSumValue,
     setEditSumValue,
+    isDragging,
+    setIsDragging,
+    dragStartCell,
+    setDragStartCell,
+    cageSelectionCursor,
+    setCageSelectionCursor,
     getCageInfo,
     isTopLeftOfCage,
-    getCageBorders
+    getCageBorders,
+    getCellsBetween,
+    validateSudoku
   } = sudokuState;
 
-  const sudokuActions = useSudokuActions(sudokuState);
+  const sudokuActions = useSudokuActions({
+    table,
+    setTable,
+    selectedCell,
+    setSelectedCell,
+    question,
+    setQuestion,
+    isQuestionMode,
+    setIsQuestionMode,
+    isHintMode,
+    setIsHintMode,
+    selectedCells,
+    setSelectedCells,
+    cages,
+    setShowSumDialog,
+    setSumValue,
+    setInvalidCells,
+    validateSudoku,
+    defaultTable,
+    isDragging,
+    setIsDragging,
+    dragStartCell,
+    setDragStartCell,
+    cageSelectionCursor,
+    setCageSelectionCursor,
+    getCellsBetween
+  });
   
   const {
     replaceValue,
     handleCellClick,
+    handleCellMouseDown,
+    handleCellMouseEnter,
+    handleCellMouseUp,
     createCage,
     cancelCage,
     finishHints,
@@ -104,33 +145,54 @@ function App() {
     setEditSumValue("");
   }, [setShowEditDialog, setEditingCage, setEditSumValue]);
 
+  // Global mouse up handler to stop dragging
+  useEffect(() => {
+    const handleGlobalMouseUp = () => {
+      if (isDragging) {
+        setIsDragging(false);
+      }
+    };
+
+    document.addEventListener('mouseup', handleGlobalMouseUp);
+    return () => {
+      document.removeEventListener('mouseup', handleGlobalMouseUp);
+    };
+  }, [isDragging, setIsDragging]);
+
   return (
-    <>
-      <ModeIndicator
-        isQuestionMode={isQuestionMode}
-        isHintMode={isHintMode}
-        selectedCells={selectedCells}
-        questionsEntered={questionsEntered}
-        createCage={createCage}
-        finishHints={finishHints}
-      />
-      
-      <SudokuGrid
-        table={table}
-        selectedCell={selectedCell}
-        isHintMode={isHintMode}
-        selectedCells={selectedCells}
-        question={question}
-        isQuestionMode={isQuestionMode}
-        invalidCells={invalidCells}
-        getCageInfo={getCageInfo}
-        isTopLeftOfCage={isTopLeftOfCage}
-        getCageBorders={getCageBorders}
-        handleCellClick={handleCellClick}
-        onEditCage={handleEditCage}
-      />
-      
-      <ControlButtons
+    <div className="min-h-screen py-8 transition-colors duration-300">
+      <div className="container px-4 mx-auto">
+        <ModeIndicator
+          isQuestionMode={isQuestionMode}
+          isHintMode={isHintMode}
+          selectedCells={selectedCells}
+          questionsEntered={questionsEntered}
+          createCage={createCage}
+          finishHints={finishHints}
+        />
+        
+        <div className="flex justify-center mb-6">
+          <SudokuGrid
+            table={table}
+            selectedCell={selectedCell}
+            isHintMode={isHintMode}
+            selectedCells={selectedCells}
+            question={question}
+            isQuestionMode={isQuestionMode}
+            invalidCells={invalidCells}
+            getCageInfo={getCageInfo}
+            isTopLeftOfCage={isTopLeftOfCage}
+            getCageBorders={getCageBorders}
+            cageSelectionCursor={cageSelectionCursor}
+            handleCellClick={handleCellClick}
+            handleCellMouseDown={handleCellMouseDown}
+            handleCellMouseEnter={handleCellMouseEnter}
+            handleCellMouseUp={handleCellMouseUp}
+            onEditCage={handleEditCage}
+          />
+        </div>
+        
+        <ControlButtons
         isQuestionMode={isQuestionMode}
         isHintMode={isHintMode}
         replaceValue={replaceValue}
@@ -168,7 +230,8 @@ function App() {
         onDeleteCage={deleteCage}
         onCancelEdit={cancelEditCage}
       />
-    </>
+      </div>
+    </div>
   );
 }
 

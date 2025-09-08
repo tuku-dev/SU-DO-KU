@@ -13,12 +13,16 @@ const SudokuGrid = ({
   isTopLeftOfCage,
   getCageBorders,
   handleCellClick,
-  onEditCage
+  handleCellMouseDown,
+  handleCellMouseEnter,
+  handleCellMouseUp,
+  onEditCage,
+  cageSelectionCursor
 }) => {
   return (
-    <div className="flex flex-col mx-auto text-center text-2xl items-center justify-center max-w-fit bg-white text-gray-900">
+    <div className="flex flex-col items-center justify-center mx-auto text-2xl text-center text-gray-900 bg-white max-w-fit">
       {table.map((row, rowIndex) => (
-        <div className="row flex" key={rowIndex}>
+        <div className="flex row" key={rowIndex}>
           {row.map((cell, cellIndex) => {
             const cage = getCageInfo(rowIndex, cellIndex);
             const topLeftCage = isTopLeftOfCage(rowIndex, cellIndex);
@@ -39,7 +43,11 @@ const SudokuGrid = ({
                 cage={cage}
                 topLeftCage={topLeftCage}
                 cageBorders={cageBorders}
+                cageSelectionCursor={cageSelectionCursor}
                 handleCellClick={handleCellClick}
+                handleCellMouseDown={handleCellMouseDown}
+                handleCellMouseEnter={handleCellMouseEnter}
+                handleCellMouseUp={handleCellMouseUp}
                 onEditCage={onEditCage}
               />
             );

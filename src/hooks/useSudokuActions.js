@@ -18,7 +18,14 @@ export const useSudokuActions = ({
   setSumValue,
   setInvalidCells,
   validateSudoku,
-  defaultTable
+  defaultTable,
+  isDragging,
+  setIsDragging,
+  dragStartCell,
+  setDragStartCell,
+  cageSelectionCursor,
+  setCageSelectionCursor,
+  getCellsBetween
 }) => {
   
   const replaceValue = useCallback(
@@ -52,10 +59,14 @@ export const useSudokuActions = ({
 
   const handleCellClick = useCallback((rowIndex, cellIndex, event) => {
     if (isHintMode) {
-      // In hint mode, handle multi-selection
       const cellKey = `${rowIndex}-${cellIndex}`;
       
+      // Update cage selection cursor to clicked cell
+      setCageSelectionCursor([rowIndex, cellIndex]);
+      console.log(`Cage cursor moved to [${rowIndex}, ${cellIndex}]`);
+      
       if (event?.shiftKey) {
+        // Shift+click: Non-consecutive selection (jump to new cell)
         setSelectedCells(prev => {
           const newSet = new Set(prev);
           if (newSet.has(cellKey)) {
@@ -66,14 +77,39 @@ export const useSudokuActions = ({
           return newSet;
         });
       } else {
-        // Single click without shift - clear selection and select this cell
+        // Regular click: Start new consecutive selection
         setSelectedCells(new Set([cellKey]));
+        setDragStartCell(cellKey);
       }
     } else {
       // Normal mode - single cell selection
       setSelectedCell([rowIndex, cellIndex]);
     }
-  }, [isHintMode, setSelectedCells, setSelectedCell]);
+  }, [isHintMode, setSelectedCells, setSelectedCell, setDragStartCell, setCageSelectionCursor]);
+
+  const handleCellMouseDown = useCallback((rowIndex, cellIndex, event) => {
+    if (isHintMode && !event?.shiftKey) {
+      setIsDragging(true);
+      const cellKey = `${rowIndex}-${cellIndex}`;
+      setDragStartCell(cellKey);
+      setSelectedCells(new Set([cellKey]));
+    }
+  }, [isHintMode, setIsDragging, setDragStartCell, setSelectedCells]);
+
+  const handleCellMouseEnter = useCallback((rowIndex, cellIndex) => {
+    if (isHintMode && isDragging && dragStartCell) {
+      const cellKey = `${rowIndex}-${cellIndex}`;
+      const cellsBetween = getCellsBetween(dragStartCell, cellKey);
+      setSelectedCells(new Set(cellsBetween));
+    }
+  }, [isHintMode, isDragging, dragStartCell, getCellsBetween, setSelectedCells]);
+
+  const handleCellMouseUp = useCallback(() => {
+    if (isHintMode && isDragging) {
+      setIsDragging(false);
+      // Keep the selected cells but stop dragging
+    }
+  }, [isHintMode, isDragging, setIsDragging]);
 
   const createCage = useCallback(() => {
     if (selectedCells.size === 0) return;
@@ -224,39 +260,139 @@ export const useSudokuActions = ({
 
   const handleKeyDown = useCallback(
     (event) => {
-      switch (event.key) {
-        case "ArrowUp":
-          moveSelectedCell(-1, 0);
-          break;
-        case "ArrowDown":
-          moveSelectedCell(1, 0);
-          break;
-        case "ArrowLeft":
-          moveSelectedCell(0, -1);
-          break;
-        case "ArrowRight":
-          moveSelectedCell(0, 1);
-          break;
-        case "Backspace":
-        case "Delete":
-          replaceValue("");
-          break;
-        case "1":
-        case "2":
-        case "3":
-        case "4":
-        case "5":
-        case "6":
-        case "7":
-        case "8":
-        case "9":
-          replaceValue(event.key);
-          break;
-        default:
-          break;
+      console.log(`Key pressed: ${event.key}, Shift: ${event.shiftKey}, Hint mode: ${isHintMode}`);
+      
+      // Handle Shift + Arrow keys for cage selection in hint mode
+      if (event.shiftKey && isHintMode) {
+        let newRow = cageSelectionCursor[0];
+        let newCol = cageSelectionCursor[1];
+        
+        switch (event.key) {
+          case "ArrowUp":
+            newRow = Math.max(cageSelectionCursor[0] - 1, 0);
+            break;
+          case "ArrowDown":
+            newRow = Math.min(cageSelectionCursor[0] + 1, 8);
+            break;
+          case "ArrowLeft":
+            newCol = Math.max(cageSelectionCursor[1] - 1, 0);
+            break;
+          case "ArrowRight":
+            newCol = Math.min(cageSelectionCursor[1] + 1, 8);
+            break;
+          default:
+            return; // Don't handle other keys with Shift in hint mode
+        }
+        
+        event.preventDefault();
+        
+        // Update cage selection cursor position
+        setCageSelectionCursor([newRow, newCol]);
+        console.log(`Cage cursor moved via keyboard to [${newRow}, ${newCol}]`);
+        
+        // Ensure current position is in selection, then add the new cell
+        const currentCellKey = `${cageSelectionCursor[0]}-${cageSelectionCursor[1]}`;
+        const newCellKey = `${newRow}-${newCol}`;
+        setSelectedCells(prev => new Set([...prev, currentCellKey, newCellKey]));
+        
+        return;
+      }
+      
+      // Handle regular navigation and input
+      if (!isHintMode) {
+        // In normal mode: regular navigation and number input
+        switch (event.key) {
+          case "ArrowUp":
+            moveSelectedCell(-1, 0);
+            break;
+          case "ArrowDown":
+            moveSelectedCell(1, 0);
+            break;
+          case "ArrowLeft":
+            moveSelectedCell(0, -1);
+            break;
+          case "ArrowRight":
+            moveSelectedCell(0, 1);
+            break;
+          case "Backspace":
+          case "Delete":
+            replaceValue("");
+            break;
+          case "1":
+          case "2":
+          case "3":
+          case "4":
+          case "5":
+          case "6":
+          case "7":
+          case "8":
+          case "9":
+            replaceValue(event.key);
+            break;
+          default:
+            break;
+        }
+      } else {
+        // In hint mode: allow navigation but no number input
+        switch (event.key) {
+          case "ArrowUp":
+            if (!event.shiftKey) {
+              console.log('Regular arrow up in hint mode');
+              moveSelectedCell(-1, 0);
+              // Also update cage selection cursor to follow regular cursor
+              setCageSelectionCursor(prev => [
+                Math.max(prev[0] - 1, 0), 
+                prev[1]
+              ]);
+              // Clear any existing cage selection when navigating normally
+              setSelectedCells(new Set());
+            }
+            break;
+          case "ArrowDown":
+            if (!event.shiftKey) {
+              console.log('Regular arrow down in hint mode');
+              moveSelectedCell(1, 0);
+              setCageSelectionCursor(prev => [
+                Math.min(prev[0] + 1, 8), 
+                prev[1]
+              ]);
+              setSelectedCells(new Set());
+            }
+            break;
+          case "ArrowLeft":
+            if (!event.shiftKey) {
+              console.log('Regular arrow left in hint mode');
+              moveSelectedCell(0, -1);
+              setCageSelectionCursor(prev => [
+                prev[0], 
+                Math.max(prev[1] - 1, 0)
+              ]);
+              setSelectedCells(new Set());
+            }
+            break;
+          case "ArrowRight":
+            if (!event.shiftKey) {
+              console.log('Regular arrow right in hint mode');
+              moveSelectedCell(0, 1);
+              setCageSelectionCursor(prev => [
+                prev[0], 
+                Math.min(prev[1] + 1, 8)
+              ]);
+              setSelectedCells(new Set());
+            }
+            break;
+          default:
+            break;
+        }
+      }
+      
+      // Handle Enter key to create cage in hint mode
+      if (event.key === "Enter" && isHintMode && selectedCells.size > 0) {
+        event.preventDefault();
+        createCage();
       }
     },
-    [moveSelectedCell, replaceValue]
+    [moveSelectedCell, replaceValue, isHintMode, cageSelectionCursor, setCageSelectionCursor, setSelectedCells, selectedCells, createCage]
   );
 
   useEffect(() => {
@@ -295,6 +431,9 @@ export const useSudokuActions = ({
   return {
     replaceValue,
     handleCellClick,
+    handleCellMouseDown,
+    handleCellMouseEnter,
+    handleCellMouseUp,
     createCage,
     confirmCage,
     cancelCage,
