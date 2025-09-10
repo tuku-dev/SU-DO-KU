@@ -18,9 +18,7 @@ const ThemeProvider = ({ children }) => {
   // Save theme preference to localStorage when changed
   useEffect(() => {
     localStorage.setItem('killer-sudoku-theme', isDarkMode ? 'dark' : 'light');
-    // Update document class for global styling
-    console.log('Setting theme to:', isDarkMode ? 'dark' : 'light');
-    
+    // Update document class for global styling    
     if (isDarkMode) {
       document.documentElement.classList.add('dark');
       document.body.classList.add('dark'); // Also add to body as fallback
@@ -28,9 +26,6 @@ const ThemeProvider = ({ children }) => {
       document.documentElement.classList.remove('dark');
       document.body.classList.remove('dark'); // Also remove from body
     }
-    
-    console.log('HTML classes:', document.documentElement.className);
-    console.log('Body classes:', document.body.className);
   }, [isDarkMode]);
 
   const toggleTheme = () => {

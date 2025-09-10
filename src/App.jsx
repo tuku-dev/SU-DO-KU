@@ -100,18 +100,30 @@ function App() {
   const confirmCage = useCallback(() => {
     if (!sumValue || selectedCells.size === 0) return;
     
+    const selectedCellsArray = Array.from(selectedCells);
+    
+    // Find existing cages that have any overlapping cells with the new selection
+    const overlappingCageIds = cages
+      .filter(cage => cage.cells.some(cell => selectedCells.has(cell)))
+      .map(cage => cage.id);
+    
+    // Remove overlapping cages first
+    const cagesAfterRemoval = cages.filter(cage => !overlappingCageIds.includes(cage.id));
+    
+    // Create new cage
     const newCage = {
       id: Date.now(),
-      cells: Array.from(selectedCells),
+      cells: selectedCellsArray,
       sum: parseInt(sumValue),
-      color: `hsl(${(cages.length * 60) % 360}, 70%, 90%)`
+      color: `hsl(${(cagesAfterRemoval.length * 60) % 360}, 70%, 90%)`
     };
     
-    setCages(prev => [...prev, newCage]);
+    // Update cages with the new cage added
+    setCages([...cagesAfterRemoval, newCage]);
     sudokuState.setSelectedCells(new Set());
     setSumValue("");
     setShowSumDialog(false);
-  }, [sumValue, selectedCells, cages.length, setCages, sudokuState, setSumValue, setShowSumDialog]);
+  }, [sumValue, selectedCells, cages, setCages, sudokuState, setSumValue, setShowSumDialog]);
 
   // Handle editing a cage
   const handleEditCage = useCallback((cage) => {

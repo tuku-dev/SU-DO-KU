@@ -38,9 +38,6 @@ export const useSudokuActions = ({
 
       // If not in question mode and trying to edit a question cell, prevent it
       if (!isQuestionMode && question[row][col] !== "") {
-        console.log(
-          `Cannot edit question cell at [${row}, ${col}] with value "${question[row][col]}"`
-        );
         return;
       }
 
@@ -63,7 +60,6 @@ export const useSudokuActions = ({
       
       // Update cage selection cursor to clicked cell
       setCageSelectionCursor([rowIndex, cellIndex]);
-      console.log(`Cage cursor moved to [${rowIndex}, ${cellIndex}]`);
       
       if (event?.shiftKey) {
         // Shift+click: Non-consecutive selection (jump to new cell)
@@ -244,7 +240,6 @@ export const useSudokuActions = ({
     // Attempt to solve
     if (solve(puzzleToSolve)) {
       setTable(puzzleToSolve);
-      console.log("Puzzle solved!");
     } else {
       alert("This puzzle cannot be solved with the current constraints.");
     }
@@ -260,7 +255,18 @@ export const useSudokuActions = ({
 
   const handleKeyDown = useCallback(
     (event) => {
-      console.log(`Key pressed: ${event.key}, Shift: ${event.shiftKey}, Hint mode: ${isHintMode}`);
+      // Handle Ctrl+Enter to proceed to next step
+      if (event.ctrlKey && event.key === "Enter") {
+        event.preventDefault();
+        if (isQuestionMode) {
+          // Step 1 → Step 2: Questions Entered → Create Cages
+          questionsEntered();
+        } else if (isHintMode) {
+          // Step 2 → Step 3: Finish Hints → Start Solving
+          finishHints();
+        }
+        return;
+      }
       
       // Handle Shift + Arrow keys for cage selection in hint mode
       if (event.shiftKey && isHintMode) {
@@ -288,7 +294,6 @@ export const useSudokuActions = ({
         
         // Update cage selection cursor position
         setCageSelectionCursor([newRow, newCol]);
-        console.log(`Cage cursor moved via keyboard to [${newRow}, ${newCol}]`);
         
         // Ensure current position is in selection, then add the new cell
         const currentCellKey = `${cageSelectionCursor[0]}-${cageSelectionCursor[1]}`;
@@ -337,7 +342,6 @@ export const useSudokuActions = ({
         switch (event.key) {
           case "ArrowUp":
             if (!event.shiftKey) {
-              console.log('Regular arrow up in hint mode');
               moveSelectedCell(-1, 0);
               // Also update cage selection cursor to follow regular cursor
               setCageSelectionCursor(prev => [
@@ -350,7 +354,6 @@ export const useSudokuActions = ({
             break;
           case "ArrowDown":
             if (!event.shiftKey) {
-              console.log('Regular arrow down in hint mode');
               moveSelectedCell(1, 0);
               setCageSelectionCursor(prev => [
                 Math.min(prev[0] + 1, 8), 
@@ -361,7 +364,6 @@ export const useSudokuActions = ({
             break;
           case "ArrowLeft":
             if (!event.shiftKey) {
-              console.log('Regular arrow left in hint mode');
               moveSelectedCell(0, -1);
               setCageSelectionCursor(prev => [
                 prev[0], 
@@ -372,7 +374,6 @@ export const useSudokuActions = ({
             break;
           case "ArrowRight":
             if (!event.shiftKey) {
-              console.log('Regular arrow right in hint mode');
               moveSelectedCell(0, 1);
               setCageSelectionCursor(prev => [
                 prev[0], 
@@ -392,7 +393,7 @@ export const useSudokuActions = ({
         createCage();
       }
     },
-    [moveSelectedCell, replaceValue, isHintMode, cageSelectionCursor, setCageSelectionCursor, setSelectedCells, selectedCells, createCage]
+    [moveSelectedCell, replaceValue, isHintMode, isQuestionMode, cageSelectionCursor, setCageSelectionCursor, setSelectedCells, selectedCells, createCage, questionsEntered, finishHints]
   );
 
   useEffect(() => {

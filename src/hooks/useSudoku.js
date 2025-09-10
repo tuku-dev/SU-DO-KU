@@ -195,8 +195,6 @@ export const useSudoku = () => {
     
     const cells = [];
     
-    console.log(`Creating selection from ${startCell} to ${endCell}`);
-    
     // Handle horizontal lines
     if (startRow === endRow) {
       const minCol = Math.min(startCol, endCol);
@@ -204,7 +202,6 @@ export const useSudoku = () => {
       for (let col = minCol; col <= maxCol; col++) {
         cells.push(`${startRow}-${col}`);
       }
-      console.log(`Horizontal line: ${cells.length} cells`);
     }
     // Handle vertical lines
     else if (startCol === endCol) {
@@ -213,7 +210,6 @@ export const useSudoku = () => {
       for (let row = minRow; row <= maxRow; row++) {
         cells.push(`${row}-${startCol}`);
       }
-      console.log(`Vertical line: ${cells.length} cells`);
     }
     // Handle L-shaped selections (corner-to-corner)
     else {
@@ -254,7 +250,6 @@ export const useSudoku = () => {
       // Choose the shorter L-shape (fewer cells)
       const chosenShape = horizontalFirst.length <= verticalFirst.length ? horizontalFirst : verticalFirst;
       cells.push(...chosenShape);
-      console.log(`L-shape: horizontal-first=${horizontalFirst.length} cells, vertical-first=${verticalFirst.length} cells, chosen=${cells.length} cells`);
     }
     
     return cells;

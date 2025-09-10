@@ -18,9 +18,7 @@ const EditCageDialog = ({
   };
 
   const handleDelete = () => {
-    if (window.confirm('Are you sure you want to delete this cage?')) {
-      onDeleteCage(editingCage.id);
-    }
+    onDeleteCage(editingCage.id);
   };
 
   const handleKeyDown = (e) => {
@@ -32,9 +30,9 @@ const EditCageDialog = ({
   };
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-      <div className="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full mx-4">
-        <h2 className="text-xl font-bold mb-4 text-gray-900">Edit Cage</h2>
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+      <div className="w-full max-w-sm p-6 mx-4 bg-white rounded-lg shadow-lg">
+        <h2 className="mb-4 text-xl font-bold text-gray-900">Edit Cage</h2>
         <p className="mb-4 text-gray-700">
           Cage with {editingCage.cells.length} cells. Current sum: {editingCage.sum}
         </p>
@@ -43,7 +41,7 @@ const EditCageDialog = ({
           value={editSumValue}
           onChange={(e) => setEditSumValue(e.target.value)}
           onKeyDown={handleKeyDown}
-          className="border p-2 rounded w-full mb-4 text-gray-900"
+          className="w-full p-2 mb-4 text-gray-900 border rounded"
           placeholder="Enter new sum"
           autoFocus
           min="1"
@@ -52,26 +50,26 @@ const EditCageDialog = ({
         <div className="flex gap-2">
           <button
             onClick={handleConfirm}
-            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 flex-1"
+            className="flex-1 px-4 py-2 text-white bg-blue-500 rounded hover:bg-blue-600"
             disabled={!editSumValue || parseInt(editSumValue) <= 0}
           >
             Update Sum
           </button>
           <button
             onClick={handleDelete}
-            className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+            className="px-4 py-2 text-white bg-red-500 rounded hover:bg-red-600"
             title="Delete this cage"
           >
             🗑️
           </button>
           <button
             onClick={onCancelEdit}
-            className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600"
+            className="px-4 py-2 text-white bg-gray-500 rounded hover:bg-gray-600"
           >
             Cancel
           </button>
         </div>
-        <p className="text-xs text-gray-500 mt-2">
+        <p className="mt-2 text-xs text-gray-500">
           Press Enter to update, Escape to cancel
         </p>
       </div>
