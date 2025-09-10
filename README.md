@@ -395,81 +395,6 @@ Shift+↓: Extend down
 
 ---
 
-## 🆕 **Recent Enhancements & Features**
-
-### **🚀 Version 1.2.0 Features**
-
-#### **Smart Cage Management**
-- **Automatic Cage Replacement**: When creating a new cage that overlaps with existing cages, the old cages are automatically removed and replaced with the new selection
-- **No Double Deletion**: Eliminates the need to manually delete overlapping cages before creating new ones
-- **Seamless Workflow**: Modify existing cages by simply selecting new cells and creating a cage
-
-```
-Example: Expanding an existing cage
-Original cage:     New selection:     Result:
-┌─────┬─────┐     ┌─────┬─────┬─────┐     ┌─────┬─────┬─────┐
-│ 12⌐ │ ┈┈┈ │ --> │  ■  │  ■  │  ■  │ --> │ 18⌐ │ ┈┈┈ │ ┈┈┈ │
-│ ┊   │ ┊   │     │  ■  │  ■  │  ■  │     │ ┊   │ ┊   │ ┊   │
-└─────┴─────┘     └─────┴─────┴─────┘     └─────┴─────┴─────┘
-```
-
-#### **Quick Step Navigation**
-- **Ctrl+Enter Shortcuts**: Fast progression through setup phases
-- **Keyboard-First Workflow**: Complete setup without using the mouse
-- **Consistent Navigation**: Works in both Question and Hint modes
-
-#### **Streamlined Cage Deletion**
-- **No Confirmation Dialogs**: Instant cage deletion from edit dialog
-- **Faster Workflow**: One-click cage removal for quick iterations
-- **Clean Interface**: Reduced dialog clutter
-
-#### **Enhanced User Experience**
-- **Clean Console**: Removed all debug logging for production-ready experience
-- **Optimized Performance**: Improved keyboard handling and state management
-- **Better Visual Feedback**: Enhanced selection highlighting and cage indicators
-
-### **🎯 Workflow Improvements**
-
-#### **Before vs After: Cage Modification**
-
-**Before** (Multiple Steps):
-```
-1. Select cells for new cage
-2. Get error: "Cage already exists"
-3. Delete old cage manually
-4. Select cells again
-5. Create new cage
-6. Confirm deletion dialog
-```
-
-**After** (Single Step):
-```
-1. Select cells for new cage
-2. Create cage → Old cage automatically replaced ✅
-```
-
-#### **Before vs After: Step Navigation**
-
-**Before** (Mouse Required):
-```
-1. Enter numbers with keyboard
-2. Reach for mouse
-3. Click "Questions Entered" button
-4. Create cages with keyboard
-5. Reach for mouse again
-6. Click "Finish Hints" button
-```
-
-**After** (Pure Keyboard):
-```
-1. Enter numbers with keyboard
-2. Press Ctrl+Enter → Hint Mode ✅
-3. Create cages with keyboard  
-4. Press Ctrl+Enter → Solve Mode ✅
-```
-
----
-
 ## 🛠️ **Technical Details**
 
 ### **Built With**
@@ -593,3 +518,24 @@ Try the live application: [Killer Sudoku Demo](https://your-demo-link.com)
 ---
 
 **Happy Puzzling! 🧩✨**
+
+---
+
+## 📋 **Version History**
+
+### **🚀 Version 1.2.0** *(September 2025)*
+
+#### **New Features**
+- **Smart Cage Management**: Automatic cage replacement when overlapping
+- **Quick Step Navigation**: Ctrl+Enter shortcuts for fast progression through modes
+- **Streamlined Cage Deletion**: No confirmation dialogs for faster workflow
+
+#### **Enhancements** 
+- **Enhanced User Experience**: Removed debug logging, optimized performance
+- **Keyboard-First Workflow**: Complete setup without mouse interaction
+- **Better Visual Feedback**: Improved selection highlighting and cage indicators
+
+#### **Workflow Improvements**
+- Eliminated double deletion workflow for cage modifications
+- One-click cage removal from edit interface
+- Pure keyboard navigation through all setup phases
