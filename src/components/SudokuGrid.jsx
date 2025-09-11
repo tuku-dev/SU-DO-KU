@@ -49,6 +49,7 @@ const SudokuGrid = ({
                 handleCellMouseEnter={handleCellMouseEnter}
                 handleCellMouseUp={handleCellMouseUp}
                 onEditCage={onEditCage}
+                table={table}
               />
             );
           })}

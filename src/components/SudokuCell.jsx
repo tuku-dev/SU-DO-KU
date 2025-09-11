@@ -19,8 +19,13 @@ const SudokuCell = ({
   handleCellMouseEnter,
   handleCellMouseUp,
   onEditCage,
+  table, // Add table prop to access all cell values
 }) => {
   const cellKey = `${rowIndex}-${cellIndex}`;
+  
+  // Get the value of the currently selected cell for number highlighting
+  const selectedCellValue = selectedCell && selectedCell.length === 2 && table ? 
+    table[selectedCell[0]][selectedCell[1]] : null;
 
   return (
     <div
@@ -53,6 +58,13 @@ const SudokuCell = ({
           (invalidCells.has(`${rowIndex}-${cellIndex}`)) ? '#ffcccc' :
           // Question cells
           (!isQuestionMode && !isHintMode && question[rowIndex][cellIndex] !== "") ? '#cce7ff' :
+          // Number highlighting (same number as selected cell)
+          (!isHintMode && selectedCellValue && cell === selectedCellValue && cell !== "" &&
+           !(selectedCell[0] === rowIndex && selectedCell[1] === cellIndex)) ? 'rgb(255, 248, 200)' :
+          // Row and column highlighting (same row or column as selected cell)
+          (!isHintMode && selectedCell && selectedCell.length === 2 && 
+           (selectedCell[0] === rowIndex || selectedCell[1] === cellIndex) &&
+           !(selectedCell[0] === rowIndex && selectedCell[1] === cellIndex)) ? 'rgb(229 235 243)' :
           // Cage colors (only if not selected and not in hint mode)
           (cage && !isHintMode && 
            !(selectedCell[0] === rowIndex && selectedCell[1] === cellIndex) &&

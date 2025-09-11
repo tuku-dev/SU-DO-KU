@@ -79,6 +79,8 @@ npm run dev
 **Visual Indicators**:
 - Selected cell: Light gray background
 - Given numbers: Blue background with bold text
+- Row/Column highlighting: Light blue background (rgb(214, 232, 255)) for constraints visualization
+- Number highlighting: Light yellow background (rgb(255, 248, 200)) for all cells with the same number
 
 ### 🎯 **Hint Mode** (Cage Creation)
 **Purpose**: Design killer cages with sum constraints
@@ -130,6 +132,8 @@ Example: Drag from A1 to C2
 - **Yellow background**: Selected cells for cage
 - **Yellow border**: Additional cage cell highlighting
 - **Dashed borders**: Existing cage boundaries
+- Row/Column highlighting: Light blue background (rgb(214, 232, 255)) for constraints visualization
+- Number highlighting: Light yellow background (rgb(255, 248, 200)) for all cells with the same number
 
 **Controls**:
 - **Create Cage Button**: Opens sum input dialog
@@ -158,6 +162,8 @@ Example: Drag from A1 to C2
 - Question cells: Blue background (protected from editing)
 - Invalid cells: Red background with red text
 - Cage cells: Colored backgrounds with sum indicators
+- Row/Column highlighting: Light blue background (rgb(214, 232, 255)) for constraints visualization
+- Number highlighting: Light yellow background (rgb(255, 248, 200)) for all cells with the same number
 
 ---
 
@@ -507,7 +513,7 @@ This project is open source and available under the [MIT License](LICENSE).
 
 - **Issues**: [GitHub Issues](https://github.com/tuku-dev/SU-DO-KU/issues)
 - **Discussions**: [GitHub Discussions](https://github.com/tuku-dev/SU-DO-KU/discussions)
-- **Email**: [Contact](mailto:contact@example.com)
+- **Email**: [Contact](mailto:thisissatrughna@gmail.com)
 
 ---
 
@@ -523,12 +529,14 @@ Try the live application: [Killer Sudoku Demo](https://your-demo-link.com)
 
 ## 📋 **Version History**
 
-### **🚀 Version 1.2.0** *(September 2025)*
+### **🚀 Version 1.0.5** *(September 2025)*
 
 #### **New Features**
 - **Smart Cage Management**: Automatic cage replacement when overlapping
 - **Quick Step Navigation**: Ctrl+Enter shortcuts for fast progression through modes
 - **Streamlined Cage Deletion**: No confirmation dialogs for faster workflow
+- **Row & Column Highlighting**: Visual highlighting of horizontal and vertical cells when a cell is selected
+- **Number Highlighting**: Automatic highlighting of all cells containing the same number as the selected cell
 
 #### **Enhancements** 
 - **Enhanced User Experience**: Removed debug logging, optimized performance
