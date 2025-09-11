@@ -1,4 +1,5 @@
 import React from 'react';
+import { dialogClasses, buttonVariants } from '../utils/cssClasses';
 
 const SumDialog = ({
   showSumDialog,
@@ -19,10 +20,10 @@ const SumDialog = ({
   };
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-      <div className="bg-white p-6 rounded-lg shadow-lg">
-        <h2 className="text-xl font-bold mb-4 text-gray-900">Enter Cage Sum</h2>
-        <p className="mb-4 text-gray-700">
+    <div className={dialogClasses.overlay}>
+      <div className={dialogClasses.container}>
+        <h2 className={dialogClasses.heading}>Enter Cage Sum</h2>
+        <p className={dialogClasses.description}>
           Selected {selectedCells.size} cells. Enter the target sum:
         </p>
         <input
@@ -30,26 +31,26 @@ const SumDialog = ({
           value={sumValue}
           onChange={(e) => setSumValue(e.target.value)}
           onKeyDown={handleKeyDown}
-          className="border p-2 rounded w-full mb-4 text-gray-900"
+          className={dialogClasses.input}
           placeholder="Enter sum (e.g., 15)"
           autoFocus
         />
-        <div className="flex gap-2">
+        <div className={dialogClasses.buttonRow}>
           <button
             onClick={confirmCage}
-            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+            className={buttonVariants.primary}
             disabled={!sumValue}
           >
             Create Cage
           </button>
           <button
             onClick={cancelCage}
-            className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600"
+            className={buttonVariants.secondary}
           >
             Cancel
           </button>
         </div>
-        <p className="text-xs text-gray-500 mt-2">
+        <p className={dialogClasses.helpText}>
           Press Enter to create cage, Escape to cancel
         </p>
       </div>

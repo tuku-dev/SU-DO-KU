@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { buttonVariants } from '../utils/cssClasses';
 
 const CageButton = ({ isVisible, selectedCells, onCreateCage }) => {
   const [showButton, setShowButton] = useState(false);
@@ -51,7 +52,7 @@ const CageButton = ({ isVisible, selectedCells, onCreateCage }) => {
       }}
     >
       <button
-        className="cage-button bg-blue-500 text-white px-3 py-2 rounded-lg shadow-lg hover:bg-blue-600 hover:scale-105 transition-all duration-200 text-sm font-medium pointer-events-auto"
+        className={`cage-button ${buttonVariants.primary} ${buttonVariants.floatingButton}`}
         onClick={onCreateCage}
         title="Click to create a cage with the selected cells"
       >

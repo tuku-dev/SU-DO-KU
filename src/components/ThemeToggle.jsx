@@ -1,17 +1,22 @@
 import React from 'react';
 import { useTheme } from '../hooks/useTheme.js';
+import { buttonVariants } from '../utils/cssClasses';
 
 const ThemeToggle = () => {
   const { isDarkMode, toggleTheme } = useTheme();
 
+  const themeButtonClass = `
+    ${buttonVariants.themeToggle}
+    bg-white dark:bg-gray-800 
+    text-gray-800 dark:text-white
+    border border-gray-300 dark:border-gray-600
+    hover:bg-gray-50 dark:hover:bg-gray-700
+  `.trim().replace(/\s+/g, ' ');
+
   return (
     <button
       onClick={toggleTheme}
-      className="fixed top-4 right-4 z-50 p-3 rounded-full shadow-lg transition-all duration-300 hover:scale-110
-        bg-white dark:bg-gray-800 
-        text-gray-800 dark:text-white
-        border border-gray-300 dark:border-gray-600
-        hover:bg-gray-50 dark:hover:bg-gray-700"
+      className={themeButtonClass}
       title={isDarkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
     >
       {isDarkMode ? (

@@ -1,4 +1,5 @@
 import React from 'react';
+import { textClasses, buttonVariants } from '../utils/cssClasses';
 
 const ModeIndicator = ({
   isQuestionMode,
@@ -10,14 +11,14 @@ const ModeIndicator = ({
 }) => {
   return (
     <>
-      <h1 className="text-3xl text-center">Sudoku Board</h1>
+      <h1 className={`${textClasses["3xl"]} text-center`}>Sudoku Board</h1>
       {isQuestionMode && (
-        <p className="text-center py-2">
-          <span className="text-red-500 text-2xl ">
+        <p className={textClasses.center}>
+          <span className={`${textClasses.red} ${textClasses["2xl"]}`}>
             Press this button after entering your question
           </span>
           <button
-            className="border p-2 m-1 ml-5 text-white text-sm"
+            className={`${buttonVariants.modeButton} text-white text-sm ml-5`}
             onClick={questionsEntered}
           >
             Done
@@ -25,20 +26,20 @@ const ModeIndicator = ({
         </p>
       )}
       {isHintMode && (
-        <p className="text-center py-2">
-          <span className="text-blue-500 text-xl">
+        <p className={textClasses.center}>
+          <span className={`${textClasses.blue} ${textClasses.xl}`}>
             Hint Mode: Shift+Click to select cells, then create cages with sums
           </span>
           <br />
           <button
-            className="border p-2 m-1 bg-blue-500 text-white"
+            className={`${buttonVariants.modeButton} ${buttonVariants.primary}`}
             onClick={createCage}
             disabled={selectedCells.size === 0}
           >
             Create Cage ({selectedCells.size} cells)
           </button>
           <button
-            className="border p-2 m-1 bg-green-500 text-white"
+            className={`${buttonVariants.modeButton} ${buttonVariants.success}`}
             onClick={finishHints}
           >
             Finish Adding Hints
@@ -46,8 +47,8 @@ const ModeIndicator = ({
         </p>
       )}
       {!isQuestionMode && !isHintMode && (
-        <p className="text-center py-2">
-          <span className="text-green-500 text-xl">
+        <p className={textClasses.center}>
+          <span className={`${textClasses.green} ${textClasses.xl}`}>
             Solve the puzzle! Respect the cage sums.
           </span>
         </p>
