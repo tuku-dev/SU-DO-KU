@@ -1,7 +1,7 @@
 import React from 'react';
-import SudokuCell from './SudokuCell';
+import KillerSudokuCell from './KillerSudokuCell';
 
-const SudokuGrid = ({
+const KillerSudokuGrid = ({
   table,
   selectedCell,
   isHintMode,
@@ -29,7 +29,7 @@ const SudokuGrid = ({
             const cageBorders = getCageBorders(rowIndex, cellIndex);
             
             return (
-              <SudokuCell
+              <KillerSudokuCell
                 key={cellIndex}
                 cell={cell}
                 rowIndex={rowIndex}
@@ -59,4 +59,4 @@ const SudokuGrid = ({
   );
 };
 
-export default SudokuGrid;
+export default KillerSudokuGrid;

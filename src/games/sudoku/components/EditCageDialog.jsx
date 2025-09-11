@@ -1,5 +1,5 @@
 import React from 'react';
-import { dialogClasses, buttonVariants } from '../utils/cssClasses';
+import { dialogClasses, buttonVariants } from '../../../shared/utils/cssClasses';
 
 const EditCageDialog = ({ 
   showEditDialog, 

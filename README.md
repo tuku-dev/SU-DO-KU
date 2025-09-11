@@ -1,33 +1,36 @@
-# 🔥 Killer Sudoku - Advanced Interactive Puzzle Solver
+# 🎮 Multi-Game Platform - Interactive Puzzle Collection
 
-A modern, feature-rich Killer Sudoku application built with React and Vite. Create custom puzzles, design killer cages with sum constraints, and solve puzzles with intelligent validation.
+A modern, scalable multi-game platform featuring an interactive home page with beautiful game selection interface. Built with React and Vite, designed for extensibility and seamless user experience.
 
-![Killer Sudoku Demo](https://img.shields.io/badge/Status-Interactive%20Demo-brightgreen)
-![React](https://img.shields.io/badge/React-18.2.0-blue)
-![Vite](https://img.shields.io/badge/Vite-5.0-yellow)
-![TailwindCSS](https://img.shields.io/badge/TailwindCSS-3.0-cyan)
+![Multi-Game Platform](https://img.shields.io/badge/Status-Interactive%20Platform-brightgreen)
+![React](https://img.shields.io/badge/React-19.1.1-blue)
+![Vite](https://img.shields.io/badge/Vite-7.1-yellow)
+![TailwindCSS](https://img.shields.io/badge/TailwindCSS-4.1-cyan)
+![Version](https://img.shields.io/badge/Version-2.0.0-purple)
 
-## ✨ Features Overview
+## ✨ Platform Overview
 
-### 🧩 **Core Sudoku Functionality**
-- Complete 9x9 Sudoku grid with number input (1-9)
-- Real-time validation for Sudoku rules (rows, columns, 3x3 boxes)
-- Visual error highlighting for invalid entries
-- Keyboard navigation with arrow keys
-- Auto-solve algorithm with backtracking
+### 🏠 **Interactive Home Page**
+- **Beautiful Game Selection**: Responsive grid layout with hover animations
+- **Modern Design**: Gradient backgrounds and smooth transitions
+- **Game Cards**: Interactive cards with scaling effects and shadows
+- **Future Games Section**: Coming soon placeholders for easy expansion
+- **Features Showcase**: Highlighting platform benefits and capabilities
 
-### 🎯 **Killer Sudoku Enhancements**
-- **Cage Creation**: Create custom killer cages with sum constraints
-- **Multiple Selection Methods**: Click, drag, shift-click, and keyboard selection
-- **Visual Cage Indicators**: Colored backgrounds and dashed borders
-- **Sum Validation**: Real-time validation of cage sum constraints
-- **Cage Management**: Edit sums, delete cages, and visual cage identification
+### 🎮 **Available Games**
+- **🧩 Killer Sudoku**: Full-featured puzzle game with cage constraints *(Active)*
+- **♟️ Chess**: Classic strategy board game *(Coming Soon)*
+- **🔴 Checkers**: Traditional board game *(Coming Soon)*
+- **⭕ Tic-tac-toe**: Quick strategy game *(Coming Soon)*
+- **📝 Word Puzzle**: Word-based brain games *(Coming Soon)*
+- **🧠 Memory Game**: Memory and concentration challenges *(Coming Soon)*
 
-### 🎨 **Advanced UI/UX**
-- **Multi-Mode Interface**: Question mode, Hint mode, and Solve mode
-- **Visual Feedback**: Color-coded cells, selection highlighting, and cursors
-- **Responsive Design**: Clean, modern interface with TailwindCSS
-- **Floating Controls**: Context-sensitive cage creation buttons
+### 🎯 **Platform Features**
+- **🌗 Theme System**: Dark/light mode across all games
+- **📱 Responsive Design**: Perfect on desktop, tablet, and mobile
+- **⚡ Fast Navigation**: Smooth transitions between games and home
+- **🎨 Consistent UI**: Shared design system and components
+- **🔧 Modular Architecture**: Easy to add new games and features
 
 ---
 
@@ -48,403 +51,187 @@ npm run dev
 # Open browser at http://localhost:5174
 ```
 
-### Basic Usage
-1. **Create a Puzzle**: Enter numbers in Question Mode
-2. **Design Cages**: Switch to Hint Mode and create killer cages
-3. **Solve**: Enter Solve Mode and complete the puzzle
+### Platform Navigation
+1. **Home Page**: Browse available games and coming soon titles
+2. **Game Selection**: Click any available game card to start playing
+3. **Theme Toggle**: Use the theme switcher in the top-right corner
+4. **Back Navigation**: Use the "← Home" button to return from any game
 
 ---
 
-## 📋 Complete Feature Guide
+## 🏗️ **Platform Architecture**
 
-## 🎮 **Mode System**
-
-### 📝 **Question Mode** (Initial Setup)
-**Purpose**: Create the initial puzzle by placing given numbers
-
-```
-┌─────────────────────────────────┐
-│  📝 QUESTION MODE ACTIVE        │
-│  Enter initial puzzle numbers   │
-│  [Done] button to continue      │
-└─────────────────────────────────┘
-```
-
-**Controls**:
-- **Number Keys (1-9)**: Place numbers in selected cell
-- **Arrow Keys**: Navigate between cells
-- **Backspace/Delete**: Clear cell
-- **Done Button**: Complete setup and enter Hint Mode
-
-**Visual Indicators**:
-- Selected cell: Light gray background
-- Given numbers: Blue background with bold text
-- Row/Column highlighting: Light blue background (rgb(214, 232, 255)) for constraints visualization
-- Number highlighting: Light yellow background (rgb(255, 248, 200)) for all cells with the same number
-
-### 🎯 **Hint Mode** (Cage Creation)
-**Purpose**: Design killer cages with sum constraints
-
-```
-┌─────────────────────────────────┐
-│  🎯 HINT MODE ACTIVE            │
-│  Create cages for killer sudoku │
-│  Multiple selection methods     │
-└─────────────────────────────────┘
-```
-
-**Cage Selection Methods**:
-
-#### 1. **Click & Drag Selection**
-- Click on start cell and drag to end cell
-- Creates rectangular areas or L-shaped selections
-- Perfect for regular cage shapes
-
-```
-Example: Drag from A1 to C2
-┌───┬───┬───┐
-│ ■ │ ■ │ ■ │ A
-├───┼───┼───┤
-│ ■ │ ■ │ ■ │ B  
-├───┼───┼───┤
-│   │   │   │ C
-└───┴───┴───┘
-  1   2   3
-```
-
-#### 2. **Consecutive Cell Clicking**
-- Click cells one by one to build selections
-- Each click adds to current selection
-- Great for custom shapes
-
-#### 3. **Shift+Click (Non-Consecutive)**
-- Hold Shift and click to jump between cells
-- Adds/removes individual cells from selection
-- Perfect for irregular cage shapes
-
-#### 4. **Keyboard Selection (Shift+Arrows)**
-- **Shift + ↑/↓/←/→**: Extend selection in any direction
-- **Enter**: Create cage from current selection
-- **Arrow Keys**: Move cursor (clears selection)
-
-**Visual Indicators**:
-- **Purple background**: Current cage cursor position
-- **Yellow background**: Selected cells for cage
-- **Yellow border**: Additional cage cell highlighting
-- **Dashed borders**: Existing cage boundaries
-- Row/Column highlighting: Light blue background (rgb(214, 232, 255)) for constraints visualization
-- Number highlighting: Light yellow background (rgb(255, 248, 200)) for all cells with the same number
-
-**Controls**:
-- **Create Cage Button**: Opens sum input dialog
-- **Enter Key**: Quick cage creation shortcut
-- **Floating Cage Button**: Appears when cells are selected
-
-### ✅ **Solve Mode** (Puzzle Completion)
-**Purpose**: Complete the puzzle while respecting all constraints
-
-```
-┌─────────────────────────────────┐
-│  ✅ SOLVE MODE ACTIVE           │
-│  Complete puzzle with cages     │
-│  Real-time validation active    │
-└─────────────────────────────────┘
-```
-
-**Controls**:
-- **Number Keys (1-9)**: Fill in solution numbers
-- **Arrow Keys**: Navigate between empty cells
-- **Auto Solve Button**: Automatically solve the puzzle
-- **Reset Answers**: Clear solution while keeping question numbers
-
-**Visual Indicators**:
-- Selected cell: Light gray background
-- Question cells: Blue background (protected from editing)
-- Invalid cells: Red background with red text
-- Cage cells: Colored backgrounds with sum indicators
-- Row/Column highlighting: Light blue background (rgb(214, 232, 255)) for constraints visualization
-- Number highlighting: Light yellow background (rgb(255, 248, 200)) for all cells with the same number
-
----
-
-## 🎨 **Cage Management System**
-
-### Creating Cages
-
-#### **Step 1: Select Cells**
-Choose one of the selection methods:
-
-```
-Method 1 - Drag Selection:
-┌───┬───┬───┐     ┌───┬───┬───┐
-│   │   │   │ --> │ ■ │ ■ │ ■ │ (Drag creates rectangle)
-├───┼───┼───┤     ├───┼───┼───┤
-│   │   │   │     │ ■ │ ■ │ ■ │
-└───┴───┴───┘     └───┴───┴───┘
-
-Method 2 - L-Shape Selection:
-┌───┬───┬───┐     ┌───┬───┬───┐
-│   │   │   │ --> │ ■ │ ■ │ ■ │ (Corner-to-corner creates L)
-├───┼───┼───┤     ├───┼───┼───┤
-│   │   │   │     │   │   │ ■ │
-└───┴───┴───┘     └───┴───┴───┘
-
-Method 3 - Keyboard Extension:
-■ = Start position
-■ + Shift+→ = ■ ■
-■ ■ + Shift+↓ = ■ ■
-                ■ ■
-```
-
-#### **Step 2: Set Sum Constraint**
-- Click "Create Cage" button or press Enter
-- Enter the target sum for the cage
-- Confirm to create the cage
-
-```
-┌─────────────────────┐
-│ Enter cage sum:     │
-│ [  15  ] [Cancel]   │
-│          [Confirm]  │
-└─────────────────────┘
-```
-
-#### **Step 3: Visual Result**
-```
-Created cage with sum 15:
-┌─────┬─────┬─────┐
-│ 15⌐ │ ··· │ ··· │ <- Sum indicator in top-left
-│ ┊   │ ┊   │ ┊   │ <- Dashed borders
-├┄┄┄┄┄┼┄┄┄┄┄┼─────┤
-│ ┊   │ ┊   │     │
-│ ┊   │ ┊   │     │
-└─────┴─────┴─────┘
-```
-
-### Editing Existing Cages
-
-**Click on Sum Indicator**: Click the number in the top-left corner of any cage
-
-```
-┌─────────────────────┐
-│ Edit Cage Sum       │
-│ Current: 15         │
-│ New: [  12  ]       │
-│ [Delete] [Cancel]   │
-│          [Save]     │
-└─────────────────────┘
-```
-
-**Options**:
-- **Save**: Update the cage sum
-- **Delete**: Remove the entire cage
-- **Cancel**: Keep existing cage unchanged
-
----
-
-## ⌨️ **Complete Keyboard Shortcuts**
-
-### **All Modes**
-| Key | Action |
-|-----|--------|
-| `1-9` | Enter number (if allowed in current mode) |
-| `Backspace/Delete` | Clear cell |
-| `Arrow Keys` | Navigate grid |
-| `Ctrl + Enter` | **NEW**: Proceed to next step (Question → Hint → Solve) |
-
-### **Question Mode**
-| Key | Action |
-|-----|--------|
-| `1-9` | Place question numbers |
-| `Enter` | Complete question setup (same as "Done" button) |
-| `Ctrl + Enter` | **NEW**: Quick transition to Hint Mode |
-
-### **Hint Mode**
-| Key | Action |
-|-----|--------|
-| `Click` | Start new cage selection |
-| `Shift + Click` | Add/remove cell from selection |
-| `Shift + Arrows` | Extend cage selection |
-| `Arrow Keys` | Move cursor (clears selection) |
-| `Enter` | Create cage from selection |
-| `Ctrl + Enter` | **NEW**: Quick transition to Solve Mode |
-
-### **Solve Mode**
-| Key | Action |
-|-----|--------|
-| `1-9` | Fill solution numbers |
-| `Backspace/Delete` | Clear answer cell |
-| `Arrow Keys` | Navigate to next empty cell |
-
----
-
-## 🎯 **Validation System**
-
-### **Sudoku Rule Validation**
-The app continuously validates:
-
-1. **Row Constraints**: No duplicate numbers in any row
-2. **Column Constraints**: No duplicate numbers in any column
-3. **Box Constraints**: No duplicate numbers in 3x3 boxes
-4. **Cage Constraints**: Cage sums must match target when complete
-
-### **Visual Error Feedback**
-
-```
-Invalid cells are highlighted:
-┌─────┬─────┬─────┐
-│  5  │  3  │  5  │ <- Row has duplicate 5s
-│ ▓▓▓ │     │ ▓▓▓ │ <- Red background indicates error
-├─────┼─────┼─────┤
-│     │     │     │
-└─────┴─────┴─────┘
-```
-
-### **Cage Sum Validation**
-
-```
-Cage sum validation states:
-┌─────────────────────┐
-│ Target: 15          │
-│ ┌─────┬─────┬─────┐ │
-│ │ 15⌐ │  7  │  3  │ │ <- Partial sum: 10/15 ✓
-│ │     │  ┊  │  ┊  │ │
-│ └─────┴─────┴─────┘ │
-│ Status: In Progress │
-└─────────────────────┘
-
-┌─────────────────────┐
-│ Target: 15          │
-│ ┌─────┬─────┬─────┐ │
-│ │ 15⌐ │  7  │  8  │ │ <- Complete sum: 15 ✓
-│ │ ▓▓▓ │ ▓▓▓ │ ▓▓▓ │ │
-│ └─────┴─────┴─────┘ │
-│ Status: Valid ✓     │
-└─────────────────────┘
-
-┌─────────────────────┐
-│ Target: 15          │
-│ ┌─────┬─────┬─────┐ │
-│ │ 15⌐ │  8  │  9  │ │ <- Complete sum: 17 ✗
-│ │ ▓▓▓ │ ▓▓▓ │ ▓▓▓ │ │ <- Red indicates error
-│ └─────┴─────┴─────┘ │
-│ Status: Invalid ✗   │
-└─────────────────────┘
-```
-
----
-
-## 🎮 **Usage Examples**
-
-### Example 1: Creating a Simple L-Cage
-
-```
-Step-by-step cage creation:
-
-1. Enter Hint Mode
-2. Click on cell [1,1]
-   ┌─────┬─────┬─────┐
-   │  ■  │     │     │ <- Purple cursor
-   ├─────┼─────┼─────┤
-   │     │     │     │
-   └─────┴─────┴─────┘
-
-3. Drag to cell [2,3] 
-   ┌─────┬─────┬─────┐
-   │  ■  │  ■  │  ■  │ <- L-shaped selection
-   ├─────┼─────┼─────┤
-   │     │     │  ■  │
-   └─────┴─────┴─────┘
-
-4. Press Enter, set sum to 22
-   ┌─────┬─────┬─────┐
-   │ 22⌐ │ ┈┈┈ │ ┈┈┈ │ <- Cage created
-   │ ┊   │ ┊   │ ┊   │
-   ├┄┄┄┄┄┼┄┄┄┄┄┼┄┄┄┄┄┤
-   │     │     │ ┊   │
-   │     │     │ ┊   │
-   └─────┴─────┴─────┘
-```
-
-### Example 2: Using Keyboard Selection
-
-```
-Extending selection with Shift+Arrows:
-
-Start: Click [2,2]
-┌─────┬─────┬─────┐
-│     │     │     │
-├─────┼─────┼─────┤
-│     │  ■  │     │ <- Start position
-├─────┼─────┼─────┤
-│     │     │     │
-└─────┴─────┴─────┘
-
-Shift+→: Extend right
-┌─────┬─────┬─────┐
-│     │     │     │
-├─────┼─────┼─────┤
-│     │  ■  │  ■  │ <- Extended selection
-├─────┼─────┼─────┤
-│     │     │     │
-└─────┴─────┴─────┘
-
-Shift+↓: Extend down
-┌─────┬─────┬─────┐
-│     │     │     │
-├─────┼─────┼─────┤
-│     │  ■  │  ■  │ <- Full selection
-├─────┼─────┼─────┤
-│     │     │  ■  │
-└─────┴─────┴─────┘
-```
-
----
-
-## 🛠️ **Technical Details**
-
-### **Built With**
-- **React 18.2** - UI framework with hooks
-- **Vite 5.0** - Fast development and build tool
-- **TailwindCSS 3.0** - Utility-first CSS framework
-- **ESLint** - Code quality and consistency
-
-### **Architecture**
+### **Project Structure**
 ```
 src/
-├── components/           # React components
-│   ├── SudokuGrid.jsx   # Main grid component
-│   ├── SudokuCell.jsx   # Individual cell component
-│   ├── ModeIndicator.jsx # Mode display and controls
-│   ├── ControlButtons.jsx # Number input and actions
-│   ├── SumDialog.jsx    # Cage sum input dialog
-│   ├── EditCageDialog.jsx # Cage editing interface
-│   └── FloatingCageButton.jsx # Context cage button
-├── hooks/               # Custom React hooks
-│   ├── useSudoku.js     # Main state management
-│   └── useSudokuActions.js # Action handlers
-├── App.jsx              # Main application component
-├── main.jsx            # Application entry point
-└── index.css           # Global styles
+├── components/              # Shared UI components
+│   ├── HomePage.jsx        # Interactive game selection page
+│   ├── GameRouter.jsx      # Navigation and routing logic
+│   └── ...
+├── games/                  # Game-specific modules
+│   ├── index.js           # Game registry and exports
+│   └── sudoku/            # Killer Sudoku game module
+│       ├── SudokuGame.jsx # Main game component
+│       ├── components/    # Game-specific components
+│       ├── hooks/         # Game-specific React hooks
+│       └── README.md      # Game-specific documentation
+├── shared/                # Shared utilities and components
+│   ├── components/        # Reusable UI components
+│   ├── hooks/            # Shared React hooks
+│   └── utils/            # Utility functions and CSS classes
+├── App.jsx               # Main application component
+└── main.jsx             # Application entry point
 ```
 
-### **Key Algorithms**
-- **Backtracking Solver**: Efficient puzzle solving with constraint checking
-- **Real-time Validation**: Continuous rule checking with optimized performance
-- **L-Shape Detection**: Smart cage creation with multiple path options
-- **Constraint Propagation**: Advanced validation for cage sum constraints
+### **Scalable Game System**
+- **Modular Games**: Each game is self-contained in its own folder
+- **Shared Resources**: Common components and utilities in `shared/`
+- **Game Registry**: Centralized game management in `games/index.js`
+- **Consistent API**: Standard interface for all games
 
 ---
 
-## 🎯 **Development**
+## 🎮 **Current Games**
 
-### **Setup Development Environment**
+### 🧩 **Killer Sudoku** *(Active)*
+**Advanced Interactive Puzzle Solver**
+
+Complete Killer Sudoku implementation with:
+- ✅ Full 9x9 Sudoku grid with validation
+- ✅ Killer cage creation and management
+- ✅ Multiple selection methods (drag, click, keyboard)
+- ✅ Real-time validation and error highlighting
+- ✅ Auto-solve algorithm with backtracking
+- ✅ Three game modes: Question, Hint, and Solve
+
+[📖 **Detailed Sudoku Documentation**](src/games/sudoku/README.md)
+
+### 🔮 **Coming Soon Games**
+
+#### ♟️ **Chess**
+- Classic 8x8 chess board
+- Full piece movement validation
+- Check and checkmate detection
+- Move history and replay
+- AI opponent options
+
+#### 🔴 **Checkers** 
+- Standard 8x8 checkers board
+- King promotion mechanics
+- Jump validation and chaining
+- AI difficulty levels
+
+#### ⭕ **Tic-tac-toe**
+- Classic 3x3 grid gameplay
+- Single and multiplayer modes
+- Win detection and scoring
+- Animated game effects
+
+#### 📝 **Word Puzzle**
+- Multiple word game variants
+- Dictionary integration
+- Scoring and timing systems
+- Progressive difficulty
+
+#### 🧠 **Memory Game**
+- Card matching challenges
+- Multiple themes and sizes
+- Time and move tracking
+- Achievement system
+
+---
+
+## 🎨 **Design System**
+
+### **Color Palette**
+```css
+/* Light Theme */
+--primary: #3b82f6        /* Blue */
+--secondary: #8b5cf6      /* Purple */  
+--accent: #06b6d4         /* Cyan */
+--background: #ffffff     /* White */
+--surface: #f8fafc        /* Light Gray */
+
+/* Dark Theme */
+--primary: #60a5fa        /* Light Blue */
+--secondary: #a78bfa      /* Light Purple */
+--accent: #22d3ee         /* Light Cyan */
+--background: #0f172a     /* Dark Blue */
+--surface: #1e293b        /* Dark Gray */
+```
+
+### **Component Standards**
+- **Responsive Design**: Mobile-first approach with Tailwind breakpoints
+- **Accessibility**: ARIA labels, keyboard navigation, contrast ratios
+- **Performance**: Optimized rendering and minimal re-renders
+- **Consistency**: Shared CSS classes and component patterns
+
+---
+
+## 🛠️ **Development Guide**
+
+### **Adding New Games**
+
+#### 1. Create Game Structure
 ```bash
-# Clone and setup
-git clone https://github.com/tuku-dev/SU-DO-KU.git
-cd SU-DO-KU
-npm install
+mkdir src/games/your-game
+cd src/games/your-game
+```
 
+#### 2. Game Component Template
+```jsx
+// src/games/your-game/YourGame.jsx
+import React from 'react';
+
+function YourGame() {
+  return (
+    <div className="min-h-screen py-8 transition-colors duration-300">
+      <div className="container px-4 mx-auto">
+        <h1 className="text-3xl font-bold text-center mb-8">
+          Your Game
+        </h1>
+        {/* Your game implementation */}
+      </div>
+    </div>
+  );
+}
+
+export default YourGame;
+```
+
+#### 3. Add to Game Registry
+```javascript
+// src/games/index.js
+export { YourGame } from './your-game';
+
+export const AVAILABLE_GAMES = [
+  // existing games...
+  {
+    id: 'your-game',
+    name: 'Your Game',
+    description: 'Description of your game',
+    component: 'YourGame',
+    category: 'Your Category'
+  }
+];
+```
+
+#### 4. Update Router
+```jsx
+// src/components/GameRouter.jsx
+import { YourGame } from '../games/your-game';
+
+const renderGame = () => {
+  switch (currentGame) {
+    case 'your-game':
+      return <YourGame />;
+    // other cases...
+  }
+};
+```
+
+### **Development Commands**
+```bash
 # Development server with hot reload
 npm run dev
 
@@ -458,39 +245,127 @@ npm run preview
 npm run lint
 ```
 
-### **Project Scripts**
-- `npm run dev` - Start development server
-- `npm run build` - Build for production
-- `npm run preview` - Preview production build
-- `npm run lint` - Run ESLint
+---
+
+## 🔧 **Technical Specifications**
+
+### **Built With**
+- **React 19.1.1** - Latest React with concurrent features
+- **Vite 7.1** - Next-generation build tool
+- **TailwindCSS 4.1** - Utility-first CSS framework
+- **ESLint 9.32** - Code quality and consistency
+
+### **Performance Features**
+- **Code Splitting**: Games loaded on-demand
+- **Hot Module Replacement**: Instant development updates
+- **Tree Shaking**: Optimized bundle sizes
+- **CSS Purging**: Minimal CSS footprint
+
+### **Browser Support**
+- ✅ Chrome 90+
+- ✅ Firefox 88+
+- ✅ Safari 14+
+- ✅ Edge 90+
+
+---
+
+## 🚀 **Deployment**
+
+### **Production Build**
+```bash
+# Build optimized version
+npm run build
+
+# Build outputs to dist/
+├── dist/
+│   ├── index.html
+│   ├── assets/
+│   │   ├── index-[hash].css
+│   │   └── index-[hash].js
+│   └── ...
+```
+
+### **Deploy Options**
+- **Netlify**: Drag and drop `dist/` folder
+- **Vercel**: Connect GitHub repository
+- **GitHub Pages**: Use GitHub Actions
+- **Custom Server**: Serve static files from `dist/`
 
 ---
 
 ## 🤝 **Contributing**
 
-We welcome contributions! Here are some ways you can help:
+### **Ways to Contribute**
+- 🎮 **Add New Games**: Implement games from our coming soon list
+- 🐛 **Bug Fixes**: Report and fix issues
+- 🎨 **UI/UX Improvements**: Enhance design and usability
+- 📚 **Documentation**: Improve guides and examples
+- 🧪 **Testing**: Add test coverage for components
 
-### **Feature Ideas**
-- [ ] Puzzle difficulty analysis
-- [ ] Save/load puzzle functionality
-- [ ] Multiple puzzle templates
-- [ ] Undo/redo functionality
-- [ ] Timer and scoring system
-- [ ] Puzzle generation algorithm
-- [ ] Mobile touch optimization
-
-### **Bug Reports**
-Please open an issue with:
-- Steps to reproduce
-- Expected vs actual behavior
-- Browser and OS information
-
-### **Pull Requests**
+### **Development Process**
 1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests if applicable
-5. Submit a pull request
+2. Create a feature branch (`git checkout -b feature/amazing-game`)
+3. Commit your changes (`git commit -m 'Add amazing game'`)
+4. Push to the branch (`git push origin feature/amazing-game`)
+5. Open a Pull Request
+
+### **Code Standards**
+- Use ES6+ JavaScript features
+- Follow React best practices and hooks patterns
+- Implement responsive design with Tailwind
+- Add JSDoc comments for complex functions
+- Maintain consistent file and folder naming
+
+---
+
+## 📱 **Mobile Experience**
+
+### **Responsive Design**
+- **Home Page**: Optimized grid layout for mobile screens
+- **Game Interface**: Touch-friendly controls and navigation
+- **Theme Toggle**: Accessible button placement
+- **Navigation**: Easy back-to-home functionality
+
+### **Performance on Mobile**
+- **Fast Loading**: Optimized assets and code splitting
+- **Smooth Animations**: Hardware-accelerated transitions
+- **Touch Events**: Native mobile gestures support
+
+---
+
+## 🎯 **Roadmap**
+
+### **Version 2.1** *(Q4 2025)*
+- [ ] Chess game implementation
+- [ ] User accounts and game progress saving
+- [ ] Achievement system across games
+- [ ] Sound effects and music
+
+### **Version 2.2** *(Q1 2026)*
+- [ ] Checkers and Tic-tac-toe games
+- [ ] Multiplayer functionality
+- [ ] Tournament mode
+- [ ] Advanced statistics
+
+### **Version 3.0** *(Q2 2026)*
+- [ ] Word Puzzle and Memory games
+- [ ] AI opponents for all games
+- [ ] Custom game creation tools
+- [ ] Mobile app versions
+
+---
+
+## 📞 **Support & Community**
+
+### **Get Help**
+- **Issues**: [GitHub Issues](https://github.com/tuku-dev/SU-DO-KU/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/tuku-dev/SU-DO-KU/discussions)
+- **Email**: [thisissatrughna@gmail.com](mailto:thisissatrughna@gmail.com)
+
+### **Community**
+- **Discord**: Join our gaming community *(Coming Soon)*
+- **Newsletter**: Get updates on new games *(Coming Soon)*
+- **Blog**: Development insights and tutorials *(Coming Soon)*
 
 ---
 
@@ -502,48 +377,59 @@ This project is open source and available under the [MIT License](LICENSE).
 
 ## 🎉 **Acknowledgments**
 
-- Sudoku puzzle concept and rules
-- React and Vite communities
-- TailwindCSS for excellent styling utilities
-- All contributors and testers
+- React and Vite communities for excellent tools
+- TailwindCSS for beautiful, responsive design system
+- Game development community for inspiration and best practices
+- All contributors and testers who help make this platform better
 
 ---
 
-## 📞 **Support**
+## 📊 **Version History**
 
-- **Issues**: [GitHub Issues](https://github.com/tuku-dev/SU-DO-KU/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/tuku-dev/SU-DO-KU/discussions)
-- **Email**: [Contact](mailto:thisissatrughna@gmail.com)
+### **🚀 Version 2.0.0** *(September 2025)* - **MAJOR RELEASE**
+
+#### **🎮 Platform Transformation**
+- **NEW**: Interactive Multi-Game Platform with beautiful home page
+- **NEW**: Game selection interface with responsive grid layout
+- **NEW**: Modular architecture supporting multiple games
+- **NEW**: Shared component system and utilities
+
+#### **🏠 Home Page Features**
+- **NEW**: Gradient background design with smooth animations
+- **NEW**: Interactive game cards with hover effects and scaling
+- **NEW**: Coming soon section with 5 placeholder games
+- **NEW**: Features showcase highlighting platform benefits
+- **NEW**: Responsive design working perfectly on all devices
+
+#### **🎯 Navigation System**
+- **NEW**: Smart game router with state management
+- **NEW**: Seamless navigation between home page and games  
+- **NEW**: Back-to-home button with consistent placement
+- **NEW**: Theme toggle working across entire platform
+
+#### **🏗️ Architecture Overhaul**
+- **BREAKING**: Complete project restructure into modular game system
+- **BREAKING**: Games moved to `src/games/` with individual folders
+- **BREAKING**: Shared components moved to `src/shared/`
+- **NEW**: Game registry system for easy game management
+- **NEW**: Barrel exports for clean import system
+- **NEW**: Scalable foundation for adding unlimited games
+
+#### **🎨 Design System**
+- **NEW**: Consistent theme system across all components
+- **NEW**: Global CSS utility classes for rapid development
+- **NEW**: Improved typography and spacing standards
+- **NEW**: Enhanced dark/light mode implementation
 
 ---
 
-## 🚀 **Live Demo**
-
-Try the live application: [Killer Sudoku Demo](https://your-demo-link.com)
-
----
-
-**Happy Puzzling! 🧩✨**
+### **Previous Versions**
+- **Version 1.0.6**: Killer Sudoku improvements and bug fixes
+- **Version 1.0.5**: Enhanced cage management and keyboard shortcuts
+- **Version 1.0.0**: Initial Killer Sudoku release
 
 ---
 
-## 📋 **Version History**
+**Ready to play? Start your gaming journey! 🎮✨**
 
-### **🚀 Version 1.0.5** *(September 2025)*
-
-#### **New Features**
-- **Smart Cage Management**: Automatic cage replacement when overlapping
-- **Quick Step Navigation**: Ctrl+Enter shortcuts for fast progression through modes
-- **Streamlined Cage Deletion**: No confirmation dialogs for faster workflow
-- **Row & Column Highlighting**: Visual highlighting of horizontal and vertical cells when a cell is selected
-- **Number Highlighting**: Automatic highlighting of all cells containing the same number as the selected cell
-
-#### **Enhancements** 
-- **Enhanced User Experience**: Removed debug logging, optimized performance
-- **Keyboard-First Workflow**: Complete setup without mouse interaction
-- **Better Visual Feedback**: Improved selection highlighting and cage indicators
-
-#### **Workflow Improvements**
-- Eliminated double deletion workflow for cage modifications
-- One-click cage removal from edit interface
-- Pure keyboard navigation through all setup phases
+---

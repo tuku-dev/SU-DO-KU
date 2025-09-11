@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { buttonVariants } from '../utils/cssClasses';
+import { buttonVariants } from '../../../shared/utils/cssClasses';
 
 const CageButton = ({ isVisible, selectedCells, onCreateCage }) => {
   const [showButton, setShowButton] = useState(false);

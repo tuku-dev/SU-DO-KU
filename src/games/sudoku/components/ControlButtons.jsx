@@ -1,5 +1,5 @@
 import React from 'react';
-import { baseClasses } from '../utils/cssClasses';
+import { baseClasses } from '../../../shared/utils/cssClasses';
 
 const ControlButtons = ({
   isQuestionMode,

@@ -1,5 +1,5 @@
 import React from 'react';
-import { textClasses, buttonVariants } from '../utils/cssClasses';
+import { textClasses, buttonVariants } from '../../../shared/utils/cssClasses';
 
 const ModeIndicator = ({
   isQuestionMode,
@@ -11,7 +11,7 @@ const ModeIndicator = ({
 }) => {
   return (
     <>
-      <h1 className={`${textClasses["3xl"]} text-center`}>Sudoku Board</h1>
+      <h1 className={`${textClasses["3xl"]} text-center`}>Killer Sudoku Board</h1>
       {isQuestionMode && (
         <p className={textClasses.center}>
           <span className={`${textClasses.red} ${textClasses["2xl"]}`}>

@@ -1,6 +1,6 @@
 import React from "react";
 
-const SudokuCell = ({
+const KillerSudokuCell = ({
   cell,
   rowIndex,
   cellIndex,
@@ -123,4 +123,4 @@ const SudokuCell = ({
   );
 };
 
-export default SudokuCell;
+export default KillerSudokuCell;

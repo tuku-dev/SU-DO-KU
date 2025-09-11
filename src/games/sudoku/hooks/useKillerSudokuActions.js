@@ -1,6 +1,6 @@
 import { useCallback, useEffect } from 'react';
 
-export const useSudokuActions = ({
+export const useKillerSudokuActions = ({
   table,
   setTable,
   selectedCell,
@@ -17,7 +17,7 @@ export const useSudokuActions = ({
   setShowSumDialog,
   setSumValue,
   setInvalidCells,
-  validateSudoku,
+  validateKillerSudoku,
   defaultTable,
   isDragging,
   setIsDragging,
@@ -46,12 +46,12 @@ export const useSudokuActions = ({
         newTable[row][col] = num;
 
         // Validate the new table state
-        setTimeout(() => validateSudoku(newTable), 0);
+        setTimeout(() => validateKillerSudoku(newTable), 0);
 
         return newTable;
       });
     },
-    [selectedCell, isQuestionMode, question, validateSudoku, isHintMode, setTable]
+    [selectedCell, isQuestionMode, question, validateKillerSudoku, isHintMode, setTable]
   );
 
   const handleCellClick = useCallback((rowIndex, cellIndex, event) => {
@@ -406,8 +406,8 @@ export const useSudokuActions = ({
 
   // Validate the table whenever it changes
   useEffect(() => {
-    validateSudoku(table);
-  }, [table, validateSudoku]);
+    validateKillerSudoku(table);
+  }, [table, validateKillerSudoku]);
 
   // Function to edit a cage's sum
   const editCage = useCallback((cageId, newSum) => {

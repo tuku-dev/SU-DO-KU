@@ -12,7 +12,7 @@ const defaultTable = [
   ["", "", "", "", "", "", "", "", ""],
 ];
 
-export const useSudoku = () => {
+export const useKillerSudoku = () => {
   const [table, setTable] = useState(defaultTable);
   const [selectedCell, setSelectedCell] = useState([0, 0]);
   const [question, setQuestion] = useState(defaultTable);
@@ -36,8 +36,8 @@ export const useSudoku = () => {
   const [editingCage, setEditingCage] = useState(null);
   const [editSumValue, setEditSumValue] = useState("");
 
-  // Function to validate Sudoku rules and find invalid cells
-  const validateSudoku = useCallback((currentTable) => {
+  // Function to validate Killer Sudoku rules and find invalid cells
+  const validateKillerSudoku = useCallback((currentTable) => {
     const invalid = new Set();
 
     // Check rows and columns for duplicates
@@ -298,7 +298,7 @@ export const useSudoku = () => {
     setEditSumValue,
     
     // Functions
-    validateSudoku,
+    validateKillerSudoku,
     getCageInfo,
     isTopLeftOfCage,
     getCageBorders,
