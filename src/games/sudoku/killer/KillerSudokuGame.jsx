@@ -2,18 +2,17 @@ import React, { useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useKillerSudoku } from "./hooks/useKillerSudoku";
 import { useKillerSudokuActions } from "./hooks/useKillerSudokuActions";
-import ModeIndicator from "./components/ModeIndicator";
+import { ModeIndicator, ControlButtons } from "../shared";
 import KillerSudokuGrid from "./components/KillerSudokuGrid";
-import ControlButtons from "./components/ControlButtons";
 import SumDialog from "./components/SumDialog";
 import FloatingCageButton from "./components/FloatingCageButton";
 import EditCageDialog from "./components/EditCageDialog";
 
-function SudokuGame() {
+function KillerSudokuGame() {
   const navigate = useNavigate();
   
   // Theme is handled by CSS classes, no need to destructure isDarkMode
-  const sudokuState = useSudoku();
+  const killerSudokuState = useKillerSudoku();
   
   const {
     table,
@@ -53,10 +52,10 @@ function SudokuGame() {
     isTopLeftOfCage,
     getCageBorders,
     getCellsBetween,
-    validateSudoku
-  } = sudokuState;
+    validateKillerSudoku
+  } = killerSudokuState;
 
-  const sudokuActions = useSudokuActions({
+  const killerSudokuActions = useKillerSudokuActions({
     table,
     setTable,
     selectedCell,
@@ -73,7 +72,7 @@ function SudokuGame() {
     setShowSumDialog,
     setSumValue,
     setInvalidCells,
-    validateSudoku,
+    validateKillerSudoku,
     defaultTable,
     isDragging,
     setIsDragging,
@@ -96,7 +95,7 @@ function SudokuGame() {
     questionsEntered,
     resetGame,
     solvePuzzle
-  } = sudokuActions;
+  } = killerSudokuActions;
 
   // Implement confirmCage here since it needs access to local state
   const confirmCage = useCallback(() => {
@@ -122,10 +121,10 @@ function SudokuGame() {
     
     // Update cages with the new cage added
     setCages([...cagesAfterRemoval, newCage]);
-    sudokuState.setSelectedCells(new Set());
+    killerSudokuState.setSelectedCells(new Set());
     setSumValue("");
     setShowSumDialog(false);
-  }, [sumValue, selectedCells, cages, setCages, sudokuState, setSumValue, setShowSumDialog]);
+  }, [sumValue, selectedCells, cages, setCages, killerSudokuState, setSumValue, setShowSumDialog]);
 
   // Handle editing a cage
   const handleEditCage = useCallback((cage) => {
@@ -185,6 +184,7 @@ function SudokuGame() {
       
       <div className="container px-4 mx-auto">
         <ModeIndicator
+          variant="killer"
           isQuestionMode={isQuestionMode}
           isHintMode={isHintMode}
           selectedCells={selectedCells}
@@ -194,7 +194,7 @@ function SudokuGame() {
         />
         
         <div className="flex justify-center mb-6">
-          <SudokuGrid
+          <KillerSudokuGrid
             table={table}
             selectedCell={selectedCell}
             isHintMode={isHintMode}
@@ -215,6 +215,7 @@ function SudokuGame() {
         </div>
         
         <ControlButtons
+          variant="killer"
           isQuestionMode={isQuestionMode}
           isHintMode={isHintMode}
           replaceValue={replaceValue}
@@ -257,4 +258,4 @@ function SudokuGame() {
   );
 }
 
-export default SudokuGame;
+export default KillerSudokuGame;

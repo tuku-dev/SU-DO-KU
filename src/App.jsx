@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
 import HomePage from "./components/HomePage";
-import { SudokuGame } from "./games/sudoku";
+import { KillerSudokuGame, NormalSudokuGame } from "./games";
 import { ThemeToggle } from "./shared";
 
 function App() {
@@ -14,7 +14,8 @@ function App() {
         
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/killer-sudoku" element={<SudokuGame />} />
+          <Route path="/sudoku" element={<NormalSudokuGame />} />
+          <Route path="/killer-sudoku" element={<KillerSudokuGame />} />
           {/* Add more game routes here as they are developed */}
           {/* <Route path="/chess" element={<ChessGame />} /> */}
           {/* <Route path="/checkers" element={<CheckersGame />} /> */}

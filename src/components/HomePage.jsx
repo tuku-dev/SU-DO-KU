@@ -10,6 +10,7 @@ const HomePage = () => {
   const handleGameClick = (gameId) => {
     // Map game IDs to their URL paths
     const gameRoutes = {
+      'normal-sudoku': '/sudoku',
       'sudoku': '/killer-sudoku',
       // Add more mappings as games are added
       // 'chess': '/chess',
@@ -67,7 +68,8 @@ const HomePage = () => {
                     {/* Game Icon */}
                     <div className="text-center mb-4">
                       <div className="w-16 h-16 mx-auto bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center text-white text-2xl font-bold shadow-lg group-hover:shadow-xl transition-shadow">
-                        {game.id === 'sudoku' ? '🔢' : '🎮'}
+                        {game.id === 'normal-sudoku' ? '🔢' : 
+                         game.id === 'sudoku' ? '🧩' : '🎮'}
                       </div>
                     </div>
                     

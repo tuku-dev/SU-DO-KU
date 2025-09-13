@@ -1,8 +1,16 @@
 // Available games
-export { KillerSudokuGame as SudokuGame } from './sudoku';
+export { KillerSudokuGame } from './sudoku/killer';
+export { NormalSudokuGame } from './sudoku/normal';
 
 // Game registry for future use
 export const AVAILABLE_GAMES = [
+  {
+    id: 'normal-sudoku',
+    name: 'Sudoku',
+    description: 'Classic 9x9 Sudoku puzzle with standard rules',
+    component: 'NormalSudokuGame',
+    category: 'Logic Puzzles'
+  },
   {
     id: 'sudoku',
     name: 'Killer Sudoku',

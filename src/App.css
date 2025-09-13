@@ -1,5 +1,11 @@
 @import "tailwindcss";
 
+/* Custom cell size for consistent sudoku grid */
+.size-15 {
+  width: 3.75rem; /* 60px */
+  height: 3.75rem; /* 60px */
+}
+
 /* Cage button animations */
 @keyframes fadeIn {
   from {
