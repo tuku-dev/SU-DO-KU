@@ -6,7 +6,7 @@ A modern, scalable multi-game platform featuring an interactive home page with b
 ![React](https://img.shields.io/badge/React-19.1.1-blue)
 ![Vite](https://img.shields.io/badge/Vite-7.1-yellow)
 ![TailwindCSS](https://img.shields.io/badge/TailwindCSS-4.1-cyan)
-![Version](https://img.shields.io/badge/Version-2.0.0-purple)
+![Version](https://img.shields.io/badge/Version-2.1.0-purple)
 
 ## ✨ Platform Overview
 
@@ -18,7 +18,8 @@ A modern, scalable multi-game platform featuring an interactive home page with b
 - **Features Showcase**: Highlighting platform benefits and capabilities
 
 ### 🎮 **Available Games**
-- **🧩 Killer Sudoku**: Full-featured puzzle game with cage constraints *(Active)*
+- **🔢 Sudoku**: Classic 9x9 puzzle with beautiful color scheme and smart highlighting *(Active)*
+- **🧩 Killer Sudoku**: Advanced puzzle with cage constraints and sum validation *(Active)*
 - **♟️ Chess**: Classic strategy board game *(Coming Soon)*
 - **🔴 Checkers**: Traditional board game *(Coming Soon)*
 - **⭕ Tic-tac-toe**: Quick strategy game *(Coming Soon)*
@@ -65,21 +66,26 @@ npm run dev
 ```
 src/
 ├── components/              # Shared UI components
-│   ├── HomePage.jsx        # Interactive game selection page
-│   ├── GameRouter.jsx      # Navigation and routing logic
-│   └── ...
+│   └── HomePage.jsx        # Interactive game selection page
 ├── games/                  # Game-specific modules
 │   ├── index.js           # Game registry and exports
-│   └── sudoku/            # Killer Sudoku game module
-│       ├── SudokuGame.jsx # Main game component
-│       ├── components/    # Game-specific components
-│       ├── hooks/         # Game-specific React hooks
-│       └── README.md      # Game-specific documentation
-├── shared/                # Shared utilities and components
-│   ├── components/        # Reusable UI components
+│   └── sudoku/            # Sudoku games module
+│       ├── shared/        # Shared components between sudoku variants
+│       │   └── components/ # ModeIndicator, ControlButtons
+│       ├── normal/        # Classic Sudoku variant
+│       │   ├── NormalSudokuGame.jsx
+│       │   ├── components/ # Grid and cell components
+│       │   └── hooks/     # Game logic hooks
+│       ├── killer/        # Killer Sudoku variant
+│       │   ├── KillerSudokuGame.jsx
+│       │   ├── components/ # Cage dialogs, floating buttons
+│       │   └── hooks/     # Advanced game logic
+│       └── README.md      # Sudoku-specific documentation
+├── shared/                # Platform-wide utilities
+│   ├── components/        # Theme toggle, reusable UI
 │   ├── hooks/            # Shared React hooks
-│   └── utils/            # Utility functions and CSS classes
-├── App.jsx               # Main application component
+│   └── utils/            # CSS classes and utilities
+├── App.jsx               # Main application with routing
 └── main.jsx             # Application entry point
 ```
 
@@ -92,6 +98,19 @@ src/
 ---
 
 ## 🎮 **Current Games**
+
+### 🔢 **Sudoku** *(Active)*
+**Classic Interactive Puzzle Solver**
+
+Beautiful implementation with enhanced visual experience:
+- ✅ Standard 9x9 Sudoku grid with full validation
+- ✅ Intelligent cell highlighting and visual cues
+- ✅ Same-number highlighting for easier solving
+- ✅ Row/column highlighting for guidance
+- ✅ Beautiful color scheme matching killer sudoku
+- ✅ Keyboard navigation and number input
+- ✅ Auto-solve algorithm with backtracking
+- ✅ Question and solve modes
 
 ### 🧩 **Killer Sudoku** *(Active)*
 **Advanced Interactive Puzzle Solver**
@@ -335,13 +354,13 @@ npm run build
 
 ## 🎯 **Roadmap**
 
-### **Version 2.1** *(Q4 2025)*
+### **Version 2.2** *(Q4 2025)*
 - [ ] Chess game implementation
 - [ ] User accounts and game progress saving
 - [ ] Achievement system across games
 - [ ] Sound effects and music
 
-### **Version 2.2** *(Q1 2026)*
+### **Version 2.3** *(Q1 2026)*
 - [ ] Checkers and Tic-tac-toe games
 - [ ] Multiplayer functionality
 - [ ] Tournament mode
@@ -385,6 +404,47 @@ This project is open source and available under the [MIT License](LICENSE).
 ---
 
 ## 📊 **Version History**
+
+### **🎨 Version 2.1.0** *(September 2025)* - **ENHANCED EXPERIENCE**
+
+#### **🔢 New Classic Sudoku Game**
+- **NEW**: Complete classic Sudoku implementation alongside Killer Sudoku
+- **NEW**: Beautiful color scheme matching Killer Sudoku aesthetics
+- **NEW**: Intelligent cell highlighting system for better solving experience
+- **NEW**: Same-number highlighting (highlights all cells with same value)
+- **NEW**: Row/column highlighting for visual guidance
+- **NEW**: Enhanced visual feedback and error indication
+
+#### **🏗️ Advanced Architecture Refactoring**
+- **IMPROVED**: Reorganized into `games/sudoku/normal/` and `games/sudoku/killer/`
+- **NEW**: Shared component system between sudoku variants
+- **NEW**: Unified `ModeIndicator` and `ControlButtons` components
+- **IMPROVED**: Clean separation of concerns with shared utilities
+- **REMOVED**: All duplicate files and redundant code
+- **OPTIMIZED**: Smaller bundle size and better maintainability
+
+#### **🎨 Enhanced Visual Design**
+- **NEW**: Consistent color palette across both sudoku variants
+- **NEW**: Professional cell highlighting with multiple priority levels
+- **NEW**: Smooth color transitions and hover effects
+- **IMPROVED**: Better contrast and accessibility compliance
+- **NEW**: Custom CSS sizing for consistent grid appearance
+
+#### **🧹 Code Quality Improvements**
+- **REMOVED**: Eliminated all duplicate components and files
+- **REMOVED**: Unused GameRouter component (replaced by React Router)
+- **CLEANED**: Simplified folder structure with clear organization
+- **IMPROVED**: Better import organization and barrel exports
+- **FIXED**: All linting errors and unused imports
+
+#### **🔧 Technical Enhancements**
+- **IMPROVED**: Better prop handling and component composition
+- **NEW**: Enhanced keyboard navigation for normal sudoku
+- **IMPROVED**: More efficient rendering and state management
+- **OPTIMIZED**: Reduced code duplication through shared components
+- **ENHANCED**: Better error handling and validation systems
+
+---
 
 ### **🚀 Version 2.0.0** *(September 2025)* - **MAJOR RELEASE**
 
